@@ -872,7 +872,7 @@ def cost_of_columns(filtered_data, rate_card):
 
 
     aggregated_data['shipment_cost'] = aggregated_data.apply(
-        lambda row: calculate_cost(row['Total Pallets'], row['PROD TYPE'], row['SHORT_POSTCODE'], rate_card),
+        lambda row: calculate_cost(row['Total Pallets'], row['PROD TYPE'], row['SHORT_POSTCODE'], rate_card) * (row['Total Pallets']),
         axis=1
     )
     return aggregated_data , aggregated_data['shipment_cost'].sum()
@@ -897,7 +897,7 @@ def consolidate_shipments(aggregated_data, rate_card, day_mapping):
 
     # Calculate the consolidated shipment cost
     consolidated_data['consolidated_shipment_cost'] = consolidated_data.apply(
-        lambda row: calculate_cost(row['Total Pallets'], row['PROD TYPE'], row['SHORT_POSTCODE'], rate_card),
+        lambda row: calculate_cost(row['Total Pallets'], row['PROD TYPE'], row['SHORT_POSTCODE'], rate_card) * (row['Total Pallets']),
         axis=1
     )
     return consolidated_data ,consolidated_data['consolidated_shipment_cost'].sum()
@@ -929,21 +929,6 @@ def find_cost_savings(complete_input, rate_card, selected_scenarios ,parameters)
         # Step 5: Determine the best scenario
     best_scenario = min(scenario_results, key=lambda x: x['total_consolidated_cost'])
 
-    # Step 6: Display results using Streamlit
-    # col1, col2 = st.columns(2)
-    # with col1:
-    #     st.write('**Before Consolidation:**')
-    #     st.write(f"Total Shipment Cost: **€{total_shipment_cost:,.2f}**")
-    #     st.write(f"No of shipments: {len(aggregated_data.index):,}")
-    #     st.write(f"Avg Pallets: {round(aggregated_data['Total Pallets'].mean(), 2)}")
-    #
-    # with col2:
-    #     st.write('**After Consolidation:**')
-    #     st.write('**Best Cost Savings Scenario:**')
-    #     st.write(f"Delivery Scenario: **{best_scenario['scenario']}**")
-    #     st.write(f"Total Consolidated Shipment Cost: **€{best_scenario['total_consolidated_cost']:,.2f}**")
-    #     st.write(f"No of shipments: {best_scenario['num_shipments']:,}")
-    #     st.write(f"Avg Pallets: {best_scenario['avg_pallets']}")
 
     metric_style = """
         <div style="
