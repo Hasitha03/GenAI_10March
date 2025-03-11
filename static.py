@@ -979,13 +979,8 @@ def find_cost_savings(complete_input, rate_card, selected_scenarios ,parameters)
     # After Consolidation
     with col2:
         st.markdown(f"##### After Consolidation")
-        # st.markdown("**Best Cost Savings Scenario:**", unsafe_allow_html=True)
-        # st.markdown(metric_style.format(
-        #     label="Delivery Scenario",
-        #     value=f"{best_scenario['scenario']}"
-        # ), unsafe_allow_html=True)
         st.markdown(metric_style.format(
-            label="Total Consolidated Shipment Cost",
+            label="Consolidated Shipment Cost",
             value=f"€{best_scenario['total_consolidated_cost']:,.2f}"
         ), unsafe_allow_html=True)
         st.markdown(metric_style.format(
